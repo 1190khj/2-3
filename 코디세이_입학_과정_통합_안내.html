@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코디세이 입학 과정 통합 안내</title>
+<style>
+:root { color-scheme:light; --ink:#192d2b; --muted:#506360; --accent:#185e53; --line:#d5e1dc; --paper:#f5f8f6; }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.7 system-ui,sans-serif; word-break:keep-all; overflow-wrap:anywhere; }
+.wrap { width:min(100% - 2rem, 69rem); margin-inline:auto; }
+header { position:relative; background:#e7f1eb; border-bottom:1px solid var(--line); padding:3.3rem 0 2.5rem; }
+.editor { display:flex; justify-content:flex-end; flex-wrap:wrap; gap:.45rem; margin:-1.9rem 0 1rem; }
+.editor button { background:white; border:1px solid var(--line); border-radius:.45rem; padding:.25rem .75rem; cursor:pointer; }
+.editor button[aria-pressed="true"] { background:var(--accent); color:white; }
+.editor-help { flex-basis:100%; text-align:right; color:var(--muted); font-size:.85rem; margin:0; }
+.editing [contenteditable] { outline:1px dashed #578a7e; outline-offset:2px; cursor:text; }
+.editing .open::after { content:none; }
+.editing .open { width:auto; }
+.card-actions { margin-top:.45rem; }
+.card-actions button { cursor:pointer; }
+@media(max-width:760px) { .editor { margin-top:0; } }
+.eyebrow { color:var(--accent); font-weight:750; font-size:.8rem; letter-spacing:.08em; margin:0; }
+h1 { font-size:clamp(2rem,6vw,3.4rem); letter-spacing:-.06em; line-height:1.15; margin:.45rem 0 .75rem; }
+.intro { color:var(--muted); margin:0 0 1.35rem; }
+.search { max-width:38rem; }
+label { display:block; font-weight:700; margin-bottom:.3rem; }
+input,button { font:inherit; color:inherit; }
+input { width:100%; padding:.65rem .9rem; border:1px solid #9db8ad; border-radius:.55rem; background:white; }
+:focus-visible { outline:3px solid #17796b; outline-offset:3px; }
+.layout { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:2rem; padding-top:1.5rem; }
+nav { align-self:start; position:sticky; top:1rem; padding:.75rem 0; }
+nav p { margin:0 0 .4rem; font-size:.85rem; color:var(--muted); font-weight:750; }
+nav a { display:flex; justify-content:space-between; gap:.5rem; text-decoration:none; color:var(--accent); padding:.38rem .55rem; border-radius:.35rem; font-weight:650; }
+nav a:hover { background:#e7f1eb; text-decoration:underline; }
+small { color:var(--muted); }
+#status { margin:0 0 1rem; color:var(--muted); }
+section { margin-bottom:2rem; scroll-margin-top:1rem; }
+h2 { margin:0 0 .65rem; font-size:1.4rem; letter-spacing:-.03em; }
+.number { font:700 .8rem/1 system-ui,sans-serif; color:var(--accent); margin-right:.6rem; }
+.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem; }
+.card { position:relative; background:white; border:1px solid var(--line); padding:.8rem .95rem; border-radius:.65rem; }
+.card:hover,.card:focus-within { border-color:#6a9d90; }
+.card h3,.card p { margin:0; }
+.open { display:flex; justify-content:space-between; width:100%; gap:.5rem; text-align:left; padding:0; border:0; background:none; font-size:1rem; font-weight:750; cursor:pointer; }
+.open::after { content:""; position:absolute; inset:0; }
+.open span[aria-hidden] { color:var(--accent); }
+.summary { color:var(--muted); font-size:.9rem; }
+footer { color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding:1rem 0 1.8rem; }
+dialog { border:1px solid var(--line); border-radius:.85rem; width:min(44rem,100% - 1.5rem); max-height:calc(100% - 2rem); padding:0; color:var(--ink); }
+dialog::backdrop { background:#11272388; }
+.dialog-head { position:sticky; top:0; z-index:1; background:white; border-bottom:1px solid var(--line); padding:.7rem 1.3rem; }
+.dialog-head button { border:1px solid var(--line); border-radius:.45rem; background:#e7f1eb; padding:.25rem .65rem; cursor:pointer; }
+.dialog-body { padding:1.15rem 1.3rem 1.5rem; }
+.dialog-body h3 { margin-bottom:.4rem; }
+ol { margin-top:0; padding-left:1.55rem; }
+li { padding-left:.2rem; margin-bottom:.55rem; }
+aside { background:#eaf4ef; padding:.7rem .9rem; border-left:3px solid var(--accent); }
+aside p { margin:.2rem 0 0; }
+.source { border-top:1px solid var(--line); padding-top:.7rem; margin:1rem 0 0; color:var(--muted); font-size:.85rem; }
+.source span { display:block; }
+table { width:100%; border-collapse:collapse; text-align:left; }
+caption { text-align:left; font-weight:750; }
+th,td { border-bottom:1px solid var(--line); padding:.3rem .4rem; }
+kbd { font:inherit; }
+@media(max-width:760px) {
+  header { padding:2rem 0 1.5rem; }
+  .layout { grid-template-columns:1fr; gap:.8rem; }
+  nav { position:static; display:flex; flex-wrap:wrap; gap:.25rem; padding:0; }
+  nav p { width:100%; }
+  nav a { background:#e7f1eb; }
+}
+@media(max-width:510px) { .cards { grid-template-columns:1fr; } }
+.editable-label, h1, .eyebrow, .intro, .search label, nav p, nav small, .number,
+.summary, footer, #detail-title, #detail-content { white-space:pre-wrap; }
+.editing [contenteditable]:empty { display:inline-block; min-width:2em; min-height:1em; }
+.add-control { margin:.65rem 0; padding:.3rem .65rem; border:1px solid var(--line); border-radius:.4rem; background:white; cursor:pointer; }
+.table-controls { display:flex; flex-wrap:wrap; gap:.35rem; }
+.table-handle {
+  width:1.45rem; height:1.45rem; padding:0; line-height:1;
+  cursor:grab; touch-action:none; user-select:none; border-radius:0;
+}
+.page-handle { display:none; }
+.editing .page-handle { display:block; }
+.editing main section, .editing .card, .editing .nav-item, .table-edit {
+  position:relative; min-width:0; padding:.45rem .65rem .55rem 2.35rem;
+  border:1px solid #94ada4; border-radius:0;
+  overflow:visible;
+}
+.editing main section { margin-bottom:1.35rem; }
+.editing .cards { gap:1.15rem; }
+.editing .nav-item { margin-bottom:.65rem; }
+.editing .nav-item a { padding:0; border-radius:0; }
+.editing .editable-label, .editing .summary, .editing .step-content {
+  min-width:0; white-space:pre-wrap; overflow-wrap:anywhere;
+}
+.table-edit { margin-bottom:.9rem; padding-right:2.25rem; }
+.table-edit > .table-delete, .table-edit > .table-handle, .editing .page-handle {
+  position:absolute; top:.35rem; margin:0;
+}
+.table-edit > .table-handle, .editing .page-handle { left:.35rem; }
+.table-edit > .table-delete { right:.35rem; padding:0 .35rem; border-radius:0; }
+.editing .cards:empty { min-height:3rem; border:1px solid var(--line); }
+.drop-before::before, .drop-after::before, .drop-left::before, .drop-right::before {
+  content:""; position:absolute; z-index:2; pointer-events:none;
+  border:3px solid #103d34; border-radius:0; box-sizing:border-box;
+  background:#e7f1eb;
+}
+.drop-before::before, .drop-after::before { left:0; right:0; height:.55rem; }
+.drop-before::before { top:-.55rem; }
+.drop-after::before { bottom:-.55rem; }
+.drop-left::before, .drop-right::before { top:0; bottom:0; width:.55rem; }
+.drop-left::before { left:-.55rem; }
+.drop-right::before { right:-.55rem; }
+.drop-inside { outline:3px solid #103d34; outline-offset:2px; border-radius:0; }
+.table-handle[aria-pressed="true"] { background:var(--accent); color:white; }
+.page-delete { display:none; }
+.editing .page-delete {
+  display:block; position:absolute; right:.35rem; top:.35rem; margin:0;
+  width:1.45rem; height:1.45rem; padding:0; line-height:1; border-radius:0;
+}
+.editing main section, .editing .card, .editing .nav-item { padding-right:2.35rem; }
+#nav-tools { width:100%; }
+#nav-tools select { max-width:100%; font:inherit; }
+header { padding-bottom:1.6rem; }
+.header-grid { display:grid; grid-template-columns:minmax(0, .95fr) minmax(0, 1.05fr); gap:1.4rem; align-items:start; }
+.header-copy h1 { font-size:clamp(1.65rem,3vw,2.45rem); margin:.4rem 0 .55rem; }
+.header-copy .intro { margin-bottom:.85rem; }
+.schedule { min-width:0; margin:0; padding:.6rem .65rem; background:#fff; border:1px solid var(--line); border-radius:.65rem; }
+.schedule h2 { margin:0 0 .35rem; font-size:1rem; line-height:1.3; }
+.schedule table { color:#000; width:100%; table-layout:fixed; border-collapse:collapse; font-size:.72rem; line-height:1.24; }
+.schedule th, .schedule td { border:1px solid #b7ccc2; text-align:center; }
+.schedule th { background:#e7f1eb; padding:.24rem .05rem; }
+.schedule td { vertical-align:top; padding:.2rem .12rem .28rem; }
+.schedule time.day { display:block; text-align:left; padding-left:.16rem; font-weight:750; font-variant-numeric:tabular-nums; }
+.schedule .event { display:block; font-weight:700; margin-top:.16rem; }
+.schedule .event time { display:block; white-space:nowrap; }
+.schedule .outside { background:#f8eeec; }
+.schedule .outside-mark { display:block; font-size:1.25rem; }
+.schedule .study { display:block; margin-top:.18rem; }
+@media(max-width:840px) { .header-grid { grid-template-columns:1fr; gap:.85rem; } .search { max-width:none; } }
+@media(max-width:420px) { .schedule { padding:.45rem .35rem; } .schedule table { font-size:.65rem; } }
+</style>
+</head>
+<body class="">
+<header><div class="wrap">
+<div class="editor">
+<button type="button" id="edit" aria-pressed="false">편집</button>
+<button type="button" id="undo-delete" hidden disabled>되돌리기</button>
+<button type="button" id="page-bold" class="bold-control" title="글자를 선택하고 누르면 굵게 표시하거나 해제합니다." hidden="">굵게</button>
+<button type="button" id="save">저장</button>
+<p id="editor-help" class="editor-help" role="status" hidden=""></p>
+</div>
+<div class="header-grid"><div class="header-copy"><p class="eyebrow">CODYSSEY · 신규 교육생 안내</p>
+<h1>코디세이 입학 과정 통합 안내</h1>
+<p class="intro">처음 학습을 시작할 때 필요한 안내를 목차에서 고르거나, 키워드로 찾아보세요.</p>
+<div class="search role="search">
+<label for="query">안내 검색</label>
+<input id="query" type="search" placeholder="예: passwd, 평가확정, GitHub" autocomplete="off">
+</div></div><aside class="schedule" aria-labelledby="schedule-heading"><h2 id="schedule-heading">입학연수 2주 일정 · 11/2–11/13</h2><table aria-labelledby="schedule-heading"><thead><tr><th scope="col">일</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th><th scope="col">목</th><th scope="col">금</th><th scope="col">토</th></tr></thead><tbody><tr><td class="outside"><time class="day" datetime="2026-11-01">01</time><span class="outside-mark" aria-label="연수 기간 외">×</span></td><td><time class="day" datetime="2026-11-02">02</time><span class="event exchange"><span class="event-label">OT</span><time>14–15시</time></span><span class="event lecture"><span class="event-label">오프라인 강의</span><time>15–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-03">03</time><span class="event exchange"><span class="event-label">교류 이벤트</span><time>15–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-04">04</time><span class="event lecture"><span class="event-label">온라인 실시간 강의</span><time>15–17시</time></span><span class="event exchange"><span class="event-label">교류 이벤트</span><time>17–18시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-05">05</time><span class="event exchange"><span class="event-label">교류 이벤트</span><time>16–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-06">06</time><span class="event lecture"><span class="event-label">오프라인 강의</span><time>10–12시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-07">07</time><span class="study">자율학습</span></td></tr><tr><td><time class="day" datetime="2026-11-08">08</time><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-09">09</time><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-10">10</time><span class="event exchange"><span class="event-label">교류 이벤트</span><time>16–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-11">11</time><span class="event exchange"><span class="event-label">교류 이벤트</span><time>16–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-12">12</time><span class="event exchange"><span class="event-label">교류 이벤트</span><time>16–17시</time></span><span class="study">자율학습</span></td><td><time class="day" datetime="2026-11-13">13</time><span class="event exam"><span class="event-label">시험</span><time>10:30–12시</time></span><span class="study">자율학습</span></td><td class="outside"><time class="day" datetime="2026-11-14">14</time><span class="outside-mark" aria-label="연수 기간 외">×</span></td></tr></tbody></table></aside></div>
+</div></header>
+<div class="layout wrap">
+<nav aria-label="카테고리 목차"><p>목차</p><div id="nav-tools" hidden></div><a href="#orientation"><span class="editable-label">입학연수와 선발</span><small>4</small></a>
+<a href="#platform"><span class="editable-label">코디세이 플랫폼 </span><small>4</small></a>
+<a href="#peer"><span class="editable-label">동료 평가 </span><small>10</small></a>
+<a href="#discord"><span class="editable-label">Discord </span><small>2</small></a>
+<a href="#imac"><span class="editable-label">교육장 iMac </span><small>7</small></a>
+<a href="#github"><span class="editable-label">GitHub </span><small>2</small></a>
+<a href="#curriculum"><span class="editable-label">본과정 커리큘럼</span><small>3</small></a>
+<a href="#lecture"><span class="editable-label">특강과 AI 에이전트</span><small>5</small></a></nav>
+<main>
+<p id="status" role="status">전체 안내 37개</p><div id="category-tools" hidden></div>
+<section id="orientation" aria-labelledby="orientation-heading"><h2 id="orientation-heading" tabindex="-1"><span class="number">01</span><span class="editable-label">입학연수와 선발</span></h2><div class="cards"><article class="card"><h3><button class="open" type="button"><span class="editable-label">2주 일정과 특강</span><span aria-hidden="true">↗</span></button></h3><p class="summary">11월 2일~13일 입학연수, 11월 13일 시험.</p><template><table><thead><tr><th scope="col">날짜</th><th scope="col">주요 일정</th></tr></thead><tbody><tr><td>11/2(월)</td><td>13:30–14:00 등록 · 14:00–15:00 OT · 15:00–17:00 오프라인 특강</td></tr><tr><td>11/3(화)</td><td>15:00–17:00 교류</td></tr><tr><td>11/4(수)</td><td>15:00–17:00 온라인 특강 · 17:00–18:00 교류</td></tr><tr><td>11/5(목)</td><td>16:00–17:00 교류</td></tr><tr><td>11/6(금)</td><td>10:00–12:00 오프라인 특강</td></tr><tr><td>11/7(토)–11/9(월)</td><td>자율학습</td></tr><tr><td>11/10(화)–11/12(목)</td><td>매일 16:00–17:00 교류</td></tr><tr><td>11/13(금)</td><td>10:30–12:00 총괄평가</td></tr><tr><td>11/19(목)</td><td>본과정 시작</td></tr><tr><td>12/16(수)</td><td>11월 장학금 산정 결과 이메일 안내</td></tr></tbody></table><p>11월 2일 이노베이션아카데미 새롬관에서 등록, 김두현 학장 환영사·기념 촬영, 운영진·과정·콘텐츠·플랫폼 소개 후 「AI와 함께 만들고 서로 확인하기」 특강을 진행합니다.</p><p>동일 내용의 오프라인 2회·온라인 실시간 1회 중 최소 1회 참석합니다. 특강 2시간, 녹화본 제공 예정, 코딩 에이전트 개념·사용법 읽기 자료는 선택 3시간입니다. 연수 중 자율학습을 병행합니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02 / 개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">선발과 총괄평가</span><span aria-hidden="true">↗</span></button></h3><p class="summary">진도율·평가 횟수·출결 시간·시험 성적으로 선발합니다.</p><template><p>세부 반영 비율은 공개되지 않으며 동료평가 횟수는 PASS와 FAIL을 동일하게 인정합니다.</p><p>총괄평가는 필수로 11월 13일 10:30–12:00에 객관식 25문항을 풉니다. 시험 범위는 대규모 언어 모델과 컨텍스트, 에이전트와 도구, 마크다운과 HTML, 코딩 에이전트 활용입니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02 / 개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">입학연수 미션 1–7</span><span aria-hidden="true">↗</span></button></h3><p class="summary">기획, 제작, 오류 수정, 동료평가, 비교·사용자 테스트.</p><template><table><thead><tr><th scope="col">미션</th><th scope="col">시간</th><th scope="col">목표</th></tr></thead><tbody><tr><td>1. 질문하며 기획하고 HTML 첫 버전 만들기</td><td>5시간</td><td>AI와 문답해 기획서를 만들고 다른 AI 결과와 비교</td></tr><tr><td>2. 오류를 재현하고 고치기</td><td>5시간</td><td>오류 재현, 원인 질문, 수정 후 재확인</td></tr><tr><td>3. 직접 써 보고 피드백 주고받기</td><td>5시간</td><td>AI와 동료 피드백을 검증해 도움이 되는 의견 한 가지를 다시 작성</td></tr><tr><td>4. 기능을 더하고 확인·복구 반복하기</td><td>7시간</td><td>기능 추가와 기존 기능 검사, 문제 발생 시 원본 복구 후 재요청</td></tr><tr><td>5. AI와 HTML 기획서 작성하기</td><td>10시간</td><td>기능과 완성 기준을 구체화해 제작을 요청하고 검토</td></tr><tr><td>6. 두 AI로 HTML 만들고 테스트하기</td><td>12시간</td><td>같은 기획서로 비교, 조건을 바꿔 예상과 실제 결과 기록</td></tr><tr><td>7. 테스트하며 고치고 사용자 피드백 반영하기</td><td>12시간</td><td>사용 관찰, 문제 재현·수정, 기존 기능 확인, 버전별 저장</td></tr></tbody></table><p>첫 주에는 특강 복습과 코딩 에이전트 읽기 자료, 미션 1–4를 진행하고 결과물과 기록을 제출합니다. 다음 주에는 미션 5–7로 나만의 HTML 페이지를 만듭니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02 / 입학연수 특강 자료</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">학습 장학금</span><span aria-hidden="true">↗</span></button></h3><p class="summary">11월 19일 본과정 진입 시 연수 기간 학습 활동도 산정에 포함합니다.</p><template><p>산정 기간은 매월 1일~말일입니다. 입학연수 자체에는 별도 장학금이 없습니다. 11월 19일 본과정에 진입하면 입학연수 출결과 동료평가 등 학습 활동도 11월 산정에 포함합니다.</p><p>별도 신청 없이 운영진이 대상과 금액을 산정합니다. 12월 16일 전체 교육생에게 이메일로 결과를 안내합니다. 대상자는 지급확인서 전자서명과 통장 사본 제출이 필요하고, 비대상자도 이메일로 산정 결과를 받습니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02</span></p></template></article></div></section>
+<section id="platform" aria-labelledby="platform-heading">
+<h2 id="platform-heading" tabindex="-1"><span class="number">02</span><span class="editable-label">코디세이 플랫폼</span></h2>
+<div class="cards"><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">학습 시작 가이드</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">학습 과정을 신청하고 첫 미션을 시작합니다.</p>
+<template><h3>사용 방법</h3><ol><li>홈에서 <strong>학습 START</strong>를 누르고 과정 카드에서 <strong>학습 상세보기</strong>를 선택합니다.</li><li>학습 지도 왼쪽에서 <strong>전체 학습로드맵</strong>을 열고 오른쪽 위 <strong>학습 신청하기</strong>를 누릅니다.</li><li>운영 기간 안내가 표시되면 내용을 읽고 진행할 경우 <strong>확인</strong>을 누릅니다. 학습시작 상태로 변경됐다는 안내도 확인합니다.</li><li>왼쪽 목록에서 시작할 미션을 선택하고 <strong>미션 시작하기</strong>를 누릅니다. 미션 신청 완료 팝업에서 <strong>확인</strong>을 누릅니다. 
+<strong aria-label="편집자 소견">**</strong> 미션 시작하기 클릭 후 평가 요청/취소 칸이 나오며, 과제 완료 후 평가 요청을 하면 됩니다. 즉, 미션 시작하기 버튼을 누르는 것에 부담이 없으셔도 됩니다.</li></ol><p class="source"><b>원본 PDF</b> <span>01_학습_시작_가이드.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">내 좌석 번호 및 좌석 배치도 보기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">현재 로그인한 교육장 컴퓨터의 좌석과 전체 배치를 확인합니다.</p>
+<template><h3>사용 방법</h3><ol><li>플랫폼 오른쪽 위 <strong>MY</strong>를 누릅니다.</li><li>메뉴 맨 위에서 현재 로그인한 교육장 컴퓨터의 좌석 번호를 확인합니다. 해당 항목을 누르면 <strong>좌석배치도</strong>가 열립니다.
+<strong aria-label="편집자 소견">**</strong> 굳이 디스코드에서 좌석 확인을 하지 않아도 평가/피평가자의 좌석 확인이 가능합니다.</li><li>왼쪽 위 선택 메뉴에서 <strong>2층 C1</strong>과 <strong>2층 C2</strong>를 전환합니다. 엘리베이터에서 나오는 방향을 기준으로 왼쪽은 C1, 오른쪽은 C2입니다.</li></ol><p class="source"><b>원본 PDF</b> <span>플랫폼에서_내_좌석_번호_찾기_및_좌석_배치도_보기.pdf</span></p></template>
+</article><article class="card"><h3><button class="open" type="button"><span class="editable-label">출결</span><span aria-hidden="true">↗</span></button></h3><p class="summary">출결 확인 방식을 확인합니다.</p><template><h3>사용 방법</h3><ol><li>출결 확인은 건물 출입 후부터 퇴실까지의 시간으로 측정됩니다.</li><li>시간은 코디세이 홈페이지 로그인 시 메인페이지, 또는 좌측 상단 'Codyssey' 버튼 클릭 시의 메인페이지에서 확인할 수 있습니다.
+</li><li>온라인 강의 수강은 출결 확인과 무관합니다.<br></li><li>외출 후의 흡연, 식사 등의 시간은 미포함입니다.
+<strong aria-label="편집자 소견">**</strong> 1층에 취식 공간이 있으니 도시락이나 간식을 챙겨오는 것도 방법입니다.</li></ol><p class="source"><b aria-label="편집자 소견">**</b> <span>교육장 이용 경험을 바탕으로 정리한 출결 안내</span></p><p>모바일 출입카드를 지참해 지정 출입구에서 간격을 두고 태깅합니다. 하루 최대 12시간까지 인정되며, 본인 부주의로 누락된 기록은 인정되지 않습니다. 고의로 출입 시간을 늘리면 장학금 부정수급으로 간주합니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">네이토 학습 도우미</span><span aria-hidden="true">↗</span></button></h3><p class="summary">힌트, 여러 언어 모델과 개발 환경 연동을 지원합니다.</p><template><p>네이토(Neito)는 아테나가 오디세우스의 아들을 도울 때 변신한 조언자 멘토의 다른 이름에서 따왔습니다. 정답 대신 힌트를 주고 Claude·ChatGPT·Gemini 계열 모델을 제공합니다.</p><p>공개 API(Application Programming Interface)와 키 발급을 지원하며, 개발 중인 프로그램·서비스에서 기능을 호출하거나 IDE(Integrated Development Environment)에 연동할 수 있습니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article></div></section>
+<section id="peer" aria-labelledby="peer-heading">
+<h2 id="peer-heading" tabindex="-1"><span class="number">03</span><span class="editable-label">동료 평가</span></h2>
+<div class="cards"><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 받기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">결과물을 제출하고 평가 가능한 시간을 신청합니다.</p>
+<template><h3>사용 방법</h3><ol><li>코디세이에 GitHub 계정을 먼저 연동한 뒤 왼쪽 사이드바에서 <strong>평가 요청</strong>을 열고 새 평가 요청을 시작합니다.</li><li><strong>학습단계 → 학습주제 → 미션</strong> 순서로 선택합니다. 평가 자료 등록에서 <strong>URL 찾기</strong>를 눌러 결과물이 들어 있는 저장소를 선택하고 <strong>확인</strong>을 누릅니다.</li><li>프로젝트 URL(Uniform Resource Locator)과 Branch 명을 확인합니다. 원본의 브랜치 예시는 <strong>main</strong>입니다. <strong>프로젝트 URL 저장 → 확인</strong>을 누릅니다.</li><li><strong>동료평가 요청</strong>을 누릅니다. 예시 화면의 평가 수행시간은 30분이며 평가자 지정방식은 랜덤입니다. 평가자가 슬롯을 열지 않았으면 요청 가능한 시간이 표시되지 않을 수 있습니다.</li><li>달력에서 <strong>요청 가능</strong> 슬롯을 선택하면 <strong>평가 요청</strong>이 활성화됩니다. 버튼을 누르고 표시되는 안내를 확인합니다.</li><li><strong>평가요청중</strong> 상태를 확인합니다. 평가자가 수락하면 <strong>평가대기중</strong>으로 바뀝니다.</li></ol><aside><strong>주의사항</strong><p>동료 평가를 받으면서 같은 시간에 평가할 수 없습니다. 요청 시간과 겹치는 본인의 오픈 슬롯은 삭제되며 평가가 끝나거나 취소해도 복구되지 않습니다. <strong>요청취소</strong>로 신청을 취소할 수 있지만 차감된 평가 포인트는 복구되지 않습니다.</p></aside><p class="source"><b>원본 PDF</b> <span>02_동료_평가_받기_피평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 일정 관리하기 ( 평가 참여 일정 설정 )</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">평가자로 참여할 수 있는 시간대를 열거나 삭제합니다.</p>
+<template><h3>사용 방법</h3><ol><li>플랫폼 홈에서 스케줄 등록 아이콘을 눌러 <strong>오픈 스케줄 등록</strong>을 엽니다.</li><li>달력에서 평가할 수 있는 시간대를 드래그합니다. 원본의 예시는 <strong>09:00~11:00</strong>입니다.</li><li><strong>오픈 일정추가</strong>에서 날짜와 시작·종료 시간을 확인한 뒤 <strong>등록하기 → 확인</strong>을 누릅니다. 달력에 30분 단위로 <strong>오픈</strong>이 표시되는지 확인합니다.</li><li>삭제하려면 해당 <strong>오픈</strong> 슬롯을 눌러 <strong>삭제</strong>를 선택하고, 확인 메시지에서 <strong>확인</strong>을 누릅니다.</li></ol><p class="source"><b>원본 PDF</b> <span>03_동료_평가_일정_관리하기_평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 신청 수락하기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">평가 참여 요청을 확인하고 약속한 시간에 평가를 시작합니다.</p>
+<template><h3>사용 방법</h3><ol><li><strong>평가참여 요청알림</strong> 팝업에서 요청을 확인합니다. 오른쪽 위 알림 아이콘에서도 평가자 지정 알림을 열 수 있습니다.</li><li>왼쪽 메뉴의 <strong>평가 참여</strong>에서 요청자, 미션, 평가 예정 일시를 확인하고 <strong>거절/수락</strong>을 누릅니다.</li><li><strong>수락하기 → 확인</strong>을 누르고 처리 완료 메시지를 확인합니다.</li><li>평가 예정 시간이 되면 <strong>평가하기</strong> 버튼이 활성화됩니다.</li></ol><p class="source"><b>원본 PDF</b> <span>04_동료_평가_신청_수락하기_평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 신청 거절하기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">평가를 맡기 어려울 때 사유를 전달하고 슬롯을 정리합니다.</p>
+<template><h3>사용 방법</h3><ol><li><strong>평가참여 요청알림</strong> 팝업이나 오른쪽 위 알림에서 요청을 확인합니다.</li><li>왼쪽 메뉴의 <strong>평가 참여</strong>에서 해당 요청의 <strong>거절/수락</strong>을 누릅니다.</li><li><strong>거절사유</strong>를 작성합니다. 입력한 사유는 요청자에게 메일로 전달됩니다. 해당 평가 시간 슬롯을 유지할지 확인한 뒤 <strong>거절하기 → 확인</strong>을 누릅니다.</li><li>상태가 <strong>평가거절</strong>로 표시되는지 확인합니다. 그 시간에 다른 평가도 맡을 수 없다면 오픈 슬롯을 삭제합니다.</li></ol><p class="source"><b>원본 PDF</b> <span>05_동료_평가_신청_거절하기_평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 피드백과 PASS 주기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">평가 문항과 경험 정도를 확인하고 피드백을 등록합니다.</p>
+<template><h3>사용 방법</h3><ol><li><strong>평가 참여 → 평가하기</strong>를 누릅니다. <strong>동료 평가 규칙 확인</strong>을 끝까지 스크롤한 뒤 활성화된 확인 버튼을 누릅니다.</li><li><strong>평가자료</strong>의 프로젝트 URL에서 GitHub 최종 결과물과 등록된 브랜치를 확인하고 평가 문항별로 PASS 또는 FAIL을 선택합니다.</li><li>평가 문항이 모두 PASS이면 결과가 PASS로 표시됩니다. 경험정도에서 <strong>재구현 가능</strong> 또는 <strong>응용구현 가능</strong>을 선택합니다. 응용구현 가능에는 추가 점수가 부여됩니다.</li><li><strong>평가 피드백 우수가이드 보기</strong>에서 예시를 확인할 수 있습니다. 확인한 결과와 근거를 구체적으로 적습니다. 원본 화면의 피드백 입력 범위는 <strong>100~2,000자</strong>입니다.</li><li><strong>저장 → 확인</strong>으로 피드백을 등록합니다. 이어서 <strong>평가확정 → 확인</strong>을 눌러야 평가가 완료됩니다. 평가 참여 목록에서 <strong>평가완료</strong>와 결과를 확인합니다.</li></ol><aside><strong>주의사항</strong><p>평가 문항 하나라도 FAIL이면 전체 결과는 FAIL입니다.</p></aside><p class="source"><b>원본 PDF</b> <span>06_동료_평가_피드백과_PASS_주기_평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가 FAIL 주기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">미충족 항목을 기록하고 평가 결과를 확정합니다.
+<strong aria-label="편집자 소견">**</strong> 평가 결과는 입학 기준이나 장학금 기준에 반영되지 않으니, 부담 갖지 말고 해주세요.</p>
+<template><h3>사용 방법</h3><ol><li><strong>평가 참여 → 평가하기</strong>를 누릅니다. 동료 평가 규칙을 끝까지 스크롤한 뒤 활성화된 확인 버튼을 누릅니다.</li><li><strong>평가자료</strong>에 등록된 프로젝트 URL에서 GitHub 최종 결과물을 확인하고 문항별 PASS 또는 FAIL을 선택합니다.</li><li>평가 문항이 하나라도 FAIL이면 결과에 <strong>FAIL</strong>이 표시됩니다. 원본 화면에서 경험정도는 <strong>재구현 불가</strong>로 표시됩니다.</li><li>어떤 기준을 충족하지 못했는지와 확인한 근거를 피드백에 구체적으로 적습니다. 원본 화면의 피드백 입력 범위는 <strong>100~2,000자</strong>입니다. <strong>저장 → 확인</strong>으로 피드백을 등록합니다.</li><li><strong>평가확정 → 확인</strong>을 누릅니다. <strong>평가완료</strong> 상태가 표시되면 항목을 열어 결과와 피드백을 확인할 수 있습니다.</li></ol><p class="source"><b>원본 PDF</b> <span>07_동료_평가_FAIL_주기_평가자.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">동료 평가자에게 의견 남기기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">받은 평가에 대해 평가자에게 별점과 의견을 남깁니다.</p>
+<template><h3>사용 방법</h3><ol><li>받은 평가 내역에서 <strong>평가완료</strong> 항목을 열고 평가자의 피드백을 확인합니다.</li><li><strong>평가자에게 남기는 의견</strong>에서 존중, 구체성, 기준 준수, 설명 기회, 학습 도움 항목별 별점을 선택합니다.</li><li>의견란에 평가 과정에서 도움이 된 점이나 개선할 점을 구체적으로 적습니다. 원본 화면 기준 <strong>200~2,000자</strong>입니다.</li><li><strong>등록</strong>을 누르고 별점과 의견이 해당 평가 내역에 표시되는지 확인합니다.</li></ol><p class="source"><b>원본 PDF</b> <span>08_동료_평가자에게_의견_남기기_피평가자.pdf</span></p></template>
+</article><article class="card"><h3><button class="open" type="button"><span class="editable-label">동료평가 규칙과 제재</span><span aria-hidden="true">↗</span></button></h3><p class="summary">전원 대면 참석, 피평가자 컴퓨터 사용, 동시 평가 금지.</p><template><p>시작부터 피드백까지 피평가자 컴퓨터에서 대면으로 진행합니다. 원격 진행이나 한 명이라도 불참하면 FAIL입니다. 여러 평가를 동시에 진행할 수 없습니다.</p><p>평가자는 자유롭게 테스트하고, 피평가자는 구현 이유를 논리적으로 설명합니다. “그냥 이렇게 했다”나 AI 작성 여부로 설명을 대신할 수 없습니다. 이해되지 않으면 설명 방식을 바꾸고 평가자도 이해하려고 노력합니다.</p><p>원격 평가는 부정행위로 간주하며 최초 경고, 재위반 시 계정 폐쇄입니다. 우정 평가와 아무도 없는 시간의 평가 요청은 금지합니다. 취소를 지양하고, 다른 피평가자와 비교하지 않으며, 결과보다 학습 과정에 집중합니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">평가 기준과 피드백 작성</span><span aria-hidden="true">↗</span></button></h3><p class="summary">평가 기준 5가지와 구체적인 피드백 작성법.</p><template><table><thead><tr><th scope="col">기준</th><th scope="col">확인할 내용</th></tr></thead><tbody><tr><td>문제 이해</td><td>목표·요구사항 이해, 개념·용어 정의</td></tr><tr><td>해결 접근</td><td>논리·체계, 기술 선택의 적합성·확장성</td></tr><tr><td>구현 정확성</td><td>가독성·유지보수·오류 처리·요구사항 충족</td></tr><tr><td>효율과 최적화</td><td>요구 성능, 메모리·네트워크 사용, 추가 최적화</td></tr><tr><td>검증과 문서화</td><td>결과 검증, 주석·문서, 충분한 테스트 결과</td></tr></tbody></table><p>상대 관점을 존중하고, 누락된 요구사항과 구체적 개선점을 명확히 적습니다. 코드와 설계 품질을 객관적으로 판단하고 이해하기 쉽게 전달합니다. 감탄사만 쓰거나 무성의하게 작성할 수 없으며, 저장소가 비어 있어도 사실을 기록합니다.</p><p>학습의 네 기둥은 주의집중, 능동적 참여(가설 검증·사회적 학습·놀이·호기심), 오류 피드백(예측·오류·신호·갱신), 공고화(수면·간격 반복·평가 참여)입니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">HTML 결과물 검증과 수정</span><span aria-hidden="true">↗</span></button></h3><p class="summary">기획서 기준을 직접 재현하고 수정 후 다시 확인합니다.</p><template><p>영화 티어리스트에서 S칸에 카드 놓기, 파일을 닫고 다시 열어 배치 확인, 휴대폰에서 잘림·가로 밀림 확인, 정상·빈 제목 추가, 처음으로 버튼 확인을 진행합니다.</p><p>AI가 순위 저장, 추가 영화 초기화, 빈 제목 관련 문제를 지적해도 실제 동작과 기획서를 대조합니다. 직접 실행한 행동과 결과를 적고, 기획서에 어긋난 점과 개선 제안, 개인 취향을 구분합니다.</p><p>피드백을 받으면 같은 동작을 재현합니다. S칸 카드가 재실행 후 미분류로 돌아가면 같은 채팅에서 수정 요청을 하고, 고친 뒤 같은 동작과 기존 기능을 다시 확인합니다. 미션별 최소 1회 PASS가 필요하며 추가 동료평가 참여에는 가산점이 있습니다. 코랩은 기록과 질문지를 바탕으로 1:1 평가를 합니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article></div></section>
+<section id="discord" aria-labelledby="discord-heading">
+<h2 id="discord-heading" tabindex="-1"><span class="number">04</span><span class="editable-label">Discord</span></h2>
+<div class="cards"><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">디스코드 연동하기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">코디세이 알림을 Discord로 받도록 인증합니다.</p>
+<template><h3>사용 방법</h3><ol><li>Discord 왼쪽 아래 프로필을 눌러 닉네임 아래의 <strong>사용자명</strong>을 확인하고 복사합니다.</li><li>코디세이의 <strong>MY → 내정보</strong>로 이동해 <strong>알림 방식</strong>에서 <strong>Discord</strong>를 선택합니다.</li><li>사용자명을 입력하고 <strong>인증번호전송</strong>을 누릅니다. Discord의 DM(Direct Message)으로 받은 번호를 입력해 인증합니다.</li><li><strong>수정하기</strong>를 눌러 알림 설정을 저장합니다.</li></ol><p class="source"><b>원본 PDF</b> <span>디스코드_연동하기.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">채널 모든 메시지 알림 설정</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">멘션이 없는 새 글도 알림으로 받도록 설정합니다.</p>
+<template><h3>사용 방법</h3><ol><li>Discord에서 알림을 받을 채널을 우클릭합니다. 원본 추천 채널은 <strong>codyssey_공지</strong>, <strong>codyssey_support</strong>, <strong>codyssey_퍼실명</strong>입니다.</li><li><strong>알림 설정 → 모든 메시지</strong>를 선택합니다.</li><li>채널을 다시 우클릭해 <strong>알림 설정</strong> 아래에 <strong>모든 메시지</strong>가 표시되는지 확인합니다. 이 설정을 적용하면 멘션이 없는 새 글에도 해당 채널 알림이 옵니다.</li></ol><p class="source"><b>원본 PDF</b> <span>디스코드 채널 모든 메시지 알림 설정.pdf</span></p><p>디스코드 support 채널에서 정책·플랫폼·학습 관련 문제를 문의합니다. 교육확산팀은 과정 운영·이벤트·장학금, 개발팀은 콘텐츠·플랫폼·기술 이슈, 퍼실리테이터는 학습 지원을 담당합니다.</p><p>공지, 동료평가 장소 찾기, 함께 공부하기, 잡담, 건물 공지, 분실물·장비 문제, 취·창업 및 네트워킹 행사 소식에도 활용합니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02</span></p></template>
+</article></div></section>
+<section id="imac" aria-labelledby="imac-heading">
+<h2 id="imac-heading" tabindex="-1"><span class="number">05</span><span class="editable-label">교육장 iMac</span></h2>
+<div class="cards"><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">계정 비밀번호 변경</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">교육장 iMac에 처음 로그인한 뒤 임시 암호를 바꿉니다.</p>
+<template><h3>사용 방법</h3><ol><li class="">교육생 계정으로 로그인합니다.
+최초 아이디는 이메일 앞자리 + 휴대폰 번호 마지막 4자리(이메일이 숫자로 시작할 시 앞에 c가 붙습니다.) 최초 임시 비밀번호는 <strong>휴대폰 번호 11자리</strong>입니다.</li><li class=""><strong>터미널(Terminal)</strong>을 열고 <strong>passwd</strong> 명령을 실행합니다. 화면의 입력 요청에 따라 암호를 변경합니다.</li><li class="">새 암호는 <strong>8자 이상</strong>이고 <strong>대문자, 소문자, 숫자, 특수문자</strong>를 각각 하나 이상 포함해야 합니다.</li></ol><aside><strong>주의사항</strong><p>교육장 계정은 <strong>시스템 설정(System Settings) → 로그인 암호(Login Password)</strong>에서 변경할 수 없습니다. 터미널에서 passwd를 사용합니다.</p></aside><p class="source"><b>원본 PDF</b> <span>iMac_계정_비밀번호_변경.pdf</span></p><p>교육확산팀 OT 로그인 안내는 이메일 @ 앞부분에 휴대전화 번호 뒤 4자리를 붙이고, 임시 비밀번호로 휴대전화 번호 11자리를 쓰도록 안내합니다. 이메일 앞부분이 숫자로 시작하면 c를 붙입니다. 같은 슬라이드의 로그인 예시에서는 번호 뒤 4자리가 생략되어 있습니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">화면 구성 살펴보기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">iMac 화면에서 설정, 도구, 앱을 찾습니다.</p>
+<template><h3>사용 방법</h3><ol><li><strong>왼쪽 위 설정 메뉴</strong>에서 Apple 아이콘을 누르면 화면 잠금, 로그아웃, 시스템 설정을 사용할 수 있습니다. 시스템 설정에서 키보드, 마우스, 입력 소스 등을 바꿉니다. Apple 아이콘 옆에는 현재 앱 이름과 해당 앱의 메뉴가 표시됩니다.</li><li><strong>오른쪽 위 도구 모음</strong>에서 한글·영문 입력 상태를 확인합니다. 토글 모양의 <strong>제어 센터</strong>를 열면 블루투스, 화면 밝기, 소리를 조절할 수 있습니다.</li><li><strong>화면 아래 Dock(독)</strong>에는 앱 바로가기, 최근 실행 앱, 다운로드 및 휴지통 등이 표시됩니다.</li></ol><p class="source"><b>원본 PDF</b> <span>교육장_PC(iMac)_화면_구성_살펴보기.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">키보드 OS 전환</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">교육장 키보드가 Mac에서 사용할 모드인지 확인합니다.</p>
+<template><h3>사용 방법</h3><ol><li>키보드 오른쪽 위에 <strong>빨간 표시등</strong>이 들어오는지 확인합니다.</li><li>꺼져 있으면 숫자 키패드 바로 위, 맨 오른쪽 위의 모드 전환 키를 <strong>5초간</strong> 꾹 누릅니다.</li><li>빨간 표시등이 켜졌는지 확인합니다.</li></ol><p class="source"><b>원본 PDF</b> <span>교육장_키보드_OS_전환하기.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">한영 전환 설정</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">교육장 iMac의 입력 소스에 한글 두벌식을 추가합니다.</p>
+<template><h3>사용 방법</h3><ol><li class="">Dock의 <strong>시스템 설정</strong> 아이콘을 누릅니다. 왼쪽 목록에서 아래로 스크롤해 <strong>키보드</strong>를 엽니다.</li><li class=""><strong>텍스트 입력 → 입력 소스 → 편집</strong>을 누릅니다. 왼쪽 아래 <strong>+</strong>를 눌러 입력 소스를 추가합니다.</li><li class="">왼쪽에서 <strong>한국어</strong>, 오른쪽에서 <strong>두벌식</strong>을 선택한 뒤 <strong>추가</strong>를 누릅니다.</li><li class="">목록에 <strong>두벌식 구름 입력기</strong>가 표시되는지 확인하고 <strong>완료</strong>를 누릅니다.</li><li class="">초기 설정 시 <b>⌘ Command + Space </b>로 한영 전환이 가능합니다.</li><li class="">설정에서 키보드<b> → 키보드 단축키 → 이전 입력 소스 선택의 우측 더블클릭 → 단축키 입력</b>을 통해 단축키 변경이 가능합니다.</li></ol><aside><strong>주의사항</strong><p>현재 교육장 PC에서는 단일 버튼으로 한/영 전환을 설정하는 명령어 설정이나 프로그램 다운로드가 제한되어있습니다.</p></aside><p class="source"><b>원본 PDF</b> <span>한영_전환을_위한_키보드_설정.pdf</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">검색·스크린샷·파일 관리</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">Spotlight, 캡처 도구, Finder와 기본 단축키를 사용합니다.</p>
+<template><h3>사용 방법</h3><ol><li class=""><strong>Spotlight(스팟라이트)</strong>는 저장된 앱이나 파일을 찾는 macOS 검색 도구입니다. <strong>⌘ Command + Space</strong>를 눌러 엽니다.</li><li class="">스크린샷을 찍거나 화면을 기록하려면 <strong>⌘ Command + ⇧ Shift + 5</strong>로 캡처 도구를 열고 원하는 모드를 선택합니다.</li><li class=""><strong>Finder(파인더)</strong>는 Windows 파일 탐색기에 해당하는 앱입니다. 원본의 <strong>⌘ Command + ⌥ Option + Space</strong> 단축키는 Finder의 검색 창을 엽니다. 파일이나 폴더 이름을 바꾸려면 항목을 선택한 뒤 <strong>Enter</strong>를 누릅니다.</li></ol><table><caption>기본 단축키</caption><tbody><tr><th scope="row">복사</th><td><kbd>⌘ Command + C</kbd></td></tr><tr><th scope="row">붙여넣기</th><td><kbd>⌘ Command + V</kbd></td></tr><tr><th scope="row">창 닫기</th><td><kbd>⌘ Command + W</kbd></td></tr><tr><th scope="row">앱 종료</th><td><kbd>⌘ Command + Q</kbd></td></tr><tr><th scope="row">앱 전환</th><td><kbd>⌘ Command + Tab</kbd></td></tr><tr><th scope="row">파일을 휴지통으로 이동</th><td><kbd>⌘ Command + Backspace</kbd></td></tr><tr><th scope="row">키 기호</th><td><kbd>⌘ Command · ⌥ Option · ⌃ Control · ⇧ Shift</kbd></td></tr></tbody></table><p class="source"><b>원본 PDF</b> <span>교육장_PC(iMac)에서_검색하고_스크린샷_찍고_파일 관리하기.pdf</span></p></template>
+</article><article class="card"><h3><button class="open" type="button"><span class="editable-label">마우스</span><span aria-hidden="true">↗</span></button></h3><p class="summary">마우스 스크롤 설정입니다.</p><template><h3>사용 방법</h3><ol><li class=""><b>설정 → 마우스 → 자연스러운 스크롤</b>을 해제하면 스크롤 반대 방향으로(윈도우 일반 마우스 스크롤 방향) 조작이 가능합니다.</li></ol><p class="source"><b aria-label="편집자 소견">**</b> <span>교육장 iMac 사용 경험을 바탕으로 정리한 설정 안내</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">교육장 이용과 안전</span><span aria-hidden="true">↗</span></button></h3><p class="summary">2층 교육장 이용, 협업 매너, 비상 연락처.</p><template><p>교육장은 2층입니다. 캐빈 내부 음식 섭취 금지, 음식물은 1층에서만 가능하며 음료는 각 층 오아시스에서 마실 수 있습니다. 위반 시 이용이 제한될 수 있습니다. 교육생용 와이파이 접속 정보는 교육확산팀 OT 원문을 참고하세요.</p><p>자리 맡아 주기와 장시간 자리 비우기, 평가 노쇼, 시설·장비 훼손, iMac에 위험을 줄 수 있는 전자기기, 비난·비속어, 음란물 시청·성적 행위, 다른 교육생에게 불리한 행동이나 강요를 금지합니다. 질문과 학습 속도를 존중하고 인사·반응, 분리수거·담배 냄새 등 공동생활 매너를 지킵니다. 위반 시 운영진 재량으로 경고 또는 제적할 수 있습니다.</p><p>소지품은 각자 관리하며 분실에 대한 운영 측 책임은 없습니다. 로그아웃 뒤 남은 물건은 분실물로 간주합니다. 상비약은 인포데스크에서 제공합니다. 재단 연락처는 평일 09:00–18:00 02-6177-2111, 주말·야간 02-6177-2138입니다. 위급하면 119에 먼저 연락하고 재단에도 알립니다.</p><p class="source"><b>출처</b> <span>교육확산팀 OT · 2026-11-02</span></p></template></article></div></section>
+<section id="github" aria-labelledby="github-heading">
+<h2 id="github-heading" tabindex="-1"><span class="number">06</span><span class="editable-label">GitHub</span></h2>
+<div class="cards"><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">깃허브 연동하기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">GitHub 사용자명과 토큰을 코디세이에 등록합니다.</p>
+<template><h3>사용 방법</h3><ol><li>코디세이 오른쪽 위에서 <strong>MY → 코드저장소 → GitHub 연동</strong>을 엽니다.</li><li>GitHub 오른쪽 위 프로필 사진을 눌러 메뉴 맨 위의 사용자명(Username)을 확인합니다. 코디세이 연동 화면의 <strong>GitHub ID (Username)</strong>에 입력합니다.</li><li>GitHub에서 <strong>프로필 → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</strong> 순서로 엽니다.</li><li><strong>Token name</strong>에 이름을 입력합니다. 예시는 <strong>cody-token</strong>입니다. <strong>Resource owner</strong>는 본인 계정으로 확인합니다. <strong>Expiration</strong>의 원본 예시는 <strong>30 days</strong>입니다.</li><li><strong>Repository access</strong>는 <strong>Public repositories</strong>를 선택합니다. <strong>Permissions</strong>에는 추가 권한을 넣지 않습니다. <strong>Generate token</strong>을 누르고 이름과 만료일을 확인한 뒤 확인 창에서 <strong>Generate token</strong>을 다시 누릅니다.</li><li>발급된 토큰 옆 복사 아이콘을 누릅니다. 코디세이의 <strong>GitHub Token</strong> 입력란에 붙여 넣고 <strong>등록/수정하기</strong>를 누릅니다.</li></ol><aside><strong>주의사항</strong><p>토큰은 비밀번호처럼 관리하고 채팅이나 화면 캡처로 공유하지 않습니다. 만료되면 토큰을 갱신하거나 새로 발급해 등록합니다.</p></aside><p class="source"><b>원본 PDF</b> <span>깃허브_연동하기.pdf</span></p><p>입학연수 중 GitHub 계정을 만들고 작업 결과물을 등록합니다. API 키는 비밀번호처럼 다루고 키가 포함된 파일을 GitHub에 올리거나 채팅·화면 공유에 노출하지 않습니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template>
+</article><article class="card">
+<h3><button class="open" type="button"><span class="editable-label">리포지토리와 파일 만들기</span><span aria-hidden="true">↗</span></button></h3>
+<p class="summary">GitHub 저장소를 만들고 결과물 파일을 올리거나 수정합니다.</p>
+<template><h3>사용 방법</h3><ol><li>GitHub에서 오른쪽 위 <strong>+ → New repository</strong>를 누릅니다.</li><li><strong>Repository name</strong>에 <strong>미션1-1</strong>처럼 영문과 하이픈으로 이름을 입력합니다. 기본 안내 파일을 함께 만들려면 <strong>Add README</strong>를 켠 뒤 <strong>Create repository</strong>를 누릅니다.</li><li>저장소에서 <strong>Add file → Upload files</strong>를 엽니다. 파일을 끌어 놓거나 <strong>choose your files</strong>로 선택한 뒤 <strong>Commit changes</strong>를 눌러 저장합니다.</li><li>기존 파일을 수정하려면 파일 목록에서 이름을 누르고 파일 화면 오른쪽 위의 연필 아이콘을 누릅니다.</li><li>수정 후 <strong>Commit changes…</strong>를 누릅니다. 확인 창에서 변경 제목인 <strong>Commit message</strong>를 확인하고 <strong>Commit changes</strong>를 누릅니다. 파일 화면에서 변경 사항을 확인합니다.</li></ol><p class="source"><b>원본 PDF</b> <span>깃허브_리포지토리와_파일_만들기.pdf</span></p></template>
+</article></div></section>
+<section id="curriculum" aria-labelledby="curriculum-heading"><h2 id="curriculum-heading" tabindex="-1"><span class="number">07</span><span class="editable-label">본과정 커리큘럼</span></h2><div class="cards"><article class="card"><h3><button class="open" type="button"><span class="editable-label">5개월 과정과 참여 요건</span><span aria-hidden="true">↗</span></button></h3><p class="summary">입학연수 0.5개월, 본과정 4.5개월.</p><template><table><thead><tr><th scope="col">단계</th><th scope="col">기간·시간</th><th scope="col">미션과 참여</th></tr></thead><tbody><tr><td>입학연수</td><td>0.5개월 · 60시간</td><td>필수 미션 7개, 특강 1회 이상, 시험</td></tr><tr><td>AI 도구 학습</td><td>1.5개월 · 160시간</td><td>필수 3개, 세미나 3개 중 1개 이상</td></tr><tr><td>AI 활용 학습</td><td>1개월 · 160시간</td><td>필수 1개, 선택 3개, 세미나 3개 중 1개 이상</td></tr><tr><td>AI 응용 학습</td><td>프로젝트 포함 2개월 · 응용 240시간</td><td>필수 1개, 선택 2개, 세미나 3개 중 1개 이상</td></tr><tr><td>파이널 프로젝트</td><td>240시간 이상</td><td>자율 주제 · 필수</td></tr></tbody></table><p>입학연수 포함 학습 주제는 4개, 필수 미션은 12개입니다. 본과정은 필수 미션 5개, 선택 5개, 세미나 9개, 파이널 프로젝트 1개입니다. 자료에는 전체 840시간 이상, 본과정 800시간으로 기재되어 있으며 개별 단계 합계는 860시간 이상입니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">단계별 목표와 미션·세미나</span><span aria-hidden="true">↗</span></button></h3><p class="summary">생성형 도구에서 바이브 코딩, 실사용자용 에이전트 서비스까지.</p><template><table><thead><tr><th scope="col">단계</th><th scope="col">목표 및 미션</th><th scope="col">세미나</th></tr></thead><tbody><tr><td>AI 도구</td><td>생성형 AI·노코드·자동화 도구 선택·연결. 프롬프트 설계, 멀티모달 콘텐츠, 노코드 자동화</td><td>사용자 인터페이스·경험 시안, 뉴스 요약 자동화, 소셜 미디어 콘텐츠 자동 생성</td></tr><tr><td>AI 활용</td><td>코딩 기초, 데이터 처리·자동화. 바이브 코딩 웹서비스 배포, Python·Git 기초, REST(Representational State Transfer) API·LLM 연동</td><td>브랜드 생성기, 뉴스 트렌드 분석, 리뷰 감정 분석</td></tr><tr><td>AI 응용</td><td>팀으로 실사용자용 서비스 기획·개발·배포. RAG(Retrieval-Augmented Generation) AI 비서, 시계열 분석, FastAPI 기억형 AI 비서</td><td>AI 카운슬러, 여행 계획 에이전트, 멀티모달 창작 플랫폼</td></tr></tbody></table><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">AI로 나만의 광고 만들기</span><span aria-hidden="true">↗</span></button></h3><p class="summary">AI 도구 학습 미션 2 · 예상 40시간.</p><template><p>제출물은 광고 영상(MP4), 스토리보드, 서비스 정체성 정의입니다. 정체성 정의에는 서비스 이름, 한 줄 소개, 톤앤매너가 들어갑니다.</p><p>텍스트·이미지·영상·오디오 도구의 장단점, 프롬프트 설계·수정 과정, 같은 요구를 적용한 도구 간 비교와 선택 이유를 설명합니다. 해상도·비율·톤앤매너를 맞춰 영상으로 통합한 기준과 다음 단계 서비스의 정체성을 광고에 반영한 방식도 설명합니다.</p><p class="source"><b>출처</b> <span>개발팀 OT · 2026-11-02</span></p></template></article></div></section>
+<section id="lecture" aria-labelledby="lecture-heading"><h2 id="lecture-heading" tabindex="-1"><span class="number">08</span><span class="editable-label">특강과 AI 에이전트</span></h2><div class="cards"><article class="card"><h3><button class="open" type="button"><span class="editable-label">AI 에이전트와 바이브 코딩</span><span aria-hidden="true">↗</span></button></h3><p class="summary">개발 방식의 변화와 강의 목표.</p><template><p>우주형 AI Evangelist의 특강입니다. 업스테이지 AI 교육, 코드잇·인프런 강의와 라이브, 팀모노리스 사내 AI 도입·팀원 교육 경력이 소개됩니다. 최근 강의처는 연세대학교, 강원대학교, 상공회의소, 경기도과학교육원입니다. 활용 사례는 코딩, 모션 그래픽, 3D 모델링, 나만의 앱입니다.</p><p>학습 목표는 AI의 답변 생성과 도구 사용 설명, AI와 기획서·HTML 제작, 직접 검증 및 근거 있는 피드백입니다.</p><p>Anthropic 사례는 사람이 직접 개발(2021–2023), 챗봇의 코드 제안(2023–2025), 코딩 에이전트의 파일 읽기·수정(2025–2026), 자율 에이전트의 실행·확인·위임 순서로 제시합니다. 에이전트는 목표를 받고 실행 결과에 따라 다음 행동을 이어갑니다.</p><p>안드레이 카파시는 2025년 2월 바이브 코딩이라는 표현을 사용했습니다. AI 개발 자체에도 모델 생성·학습·성능 평가 코드가 필요하며, 현 세대 AI를 다음 세대 개발에 쓰는 예로 GPT-5.3-Codex가 소개됩니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">언어 모델·도구·컨텍스트</span><span aria-hidden="true">↗</span></button></h3><p class="summary">답변 생성, 파일 작업, 도구 호출과 실패 점검.</p><template><p>LLM(Large Language Model)은 휴대전화 자동완성처럼 시스템 지시와 대화 내용을 바탕으로 다음 토큰을 이어 생성합니다. 점심 메뉴 추천 예시로 시스템 지시와 후보 토큰을 보여 줍니다.</p><p>강의 시연의 웹 채팅(ChatGPT·Claude·Gemini)은 답변의 코드를 복사해 저장하고, 코딩 에이전트(Codex·Claude Code)는 폴더의 기획서를 읽고 index.html을 만들고 브라우저로 확인합니다.</p><p>에이전트는 LLM과 하네스로 구성됩니다. 모델이 행동을 정하면 하네스가 파일 읽기·수정, 명령 실행, 웹 접근 등 도구를 실행합니다. 예를 들어 cat 기획서.md의 결과가 다음 입력이 됩니다.</p><p>검색 결과, 실행 결과, 파일 내용과 대화가 컨텍스트 윈도에 쌓입니다. 어떤 정보를 넣을지 설계하는 것이 컨텍스트 엔지니어링입니다. 실패 시 요청의 모호함, 필요한 맥락의 누락, 도구의 실제 실행 결과를 각각 확인합니다.</p><p>작업 폴더를 열고 할 일을 말로 요청한 뒤 파일이 만들어지고 수정되는 과정을 보며, 결과물을 직접 열어 확인합니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">마크다운 기획서와 단일 HTML</span><span aria-hidden="true">↗</span></button></h3><p class="summary">기획서의 5요소, 파일 형식과 제작 절차.</p><template><p>마크다운(.md)은 기획서·메모·작업 규칙에 쓰입니다. #과 ##는 제목, -는 글머리표, 1.은 번호 목록, **글**은 강조, &gt;는 인용, [이름](주소)는 링크, - [ ]는 체크 항목입니다. 렌더링은 원문을 읽기 좋은 화면으로 표시하는 과정입니다. 확장자가 안 보이면 운영체제에 맞춰 표시 설정을 확인합니다.</p><p>메모장, 옵시디언, VS Code(Visual Studio Code), ChatGPT·Claude로 읽거나 편집합니다. 기획서는 새 대화·다른 AI·동료에게 전달해 공통 제작 및 검증 기준으로 활용합니다. 모닥불 페이지 예시는 장작 넣기, 불멍하기, 따뜻한 픽셀아트, 로그인·서버 없이 작동하는 조건을 포함합니다.</p><p>HTML(HyperText Markup Language)은 구조, CSS(Cascading Style Sheets)는 디자인, JavaScript는 동작을 담당합니다. 각각의 파일로 연결하거나 index.html 안에 모두 담을 수 있습니다. 브라우저 우클릭의 페이지 소스 보기로 원문을 확인합니다. h1은 제목, p는 문단, button은 버튼을 표시합니다.</p><p>예시 결과물은 인쇄·PDF 저장이 가능한 이력서, 브라우저 저장을 지원하는 영화 티어리스트, 오선 악보를 따라 연주하는 피아노 게임입니다. 가계부, 퀴즈, 타이머, 체크리스트, 독서 기록, 여행 일정표, 메뉴판, 단어장도 만들 수 있습니다.</p><p>기획서에는 사용자·목적·화면과 동작·필요 자료·완성 기준을 담습니다. 예시로 나와 친구들이 영화 8개를 S·A·B·C 네 등급에 드래그하고 제목을 추가하며, 다시 열어도 순위가 남도록 기획합니다.</p><p>먼저 AI가 다섯 항목을 질문하게 하고 기획서.md를 받아 확인합니다. 같은 대화에서 CSS와 JavaScript를 포함한 단일 HTML을 요청합니다. 다른 파일·서버 없이 더블클릭으로 열리는지, 기획과 일치하는지 확인한 뒤 개선합니다. 외부 영화 포스터는 API로 가져올 수 있으며 API 키는 공개하지 않습니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">에이전트 운영 규칙과 확장 도구</span><span aria-hidden="true">↗</span></button></h3><p class="summary">AGENTS.md, 메모리, 스킬, MCP, 서브에이전트.</p><template><table><thead><tr><th scope="col">개념</th><th scope="col">역할</th></tr></thead><tbody><tr><td>AGENTS.md</td><td>실행 명령·테스트 규칙처럼 반드시 따라야 할 지침</td></tr><tr><td>메모리</td><td>짧고 담백한 문장 선호처럼 이전 대화의 유용한 맥락을 다음 작업에 활용</td></tr><tr><td>스킬</td><td>그림·발표·번역·코드 수정 등 작업 절차. 이름과 설명 → 작업 지침 → 필요한 자료·템플릿 순으로 읽는 점진적 공개</td></tr><tr><td>skill-creator</td><td>반복하는 주간 보고 등의 작업을 재사용 가능한 스킬로 작성. 자동 선택이나 직접 호출 가능</td></tr><tr><td>MCP(Model Context Protocol)</td><td>외부 서비스 연결 표준. 노션 회의록 읽기 → 요약 → 슬랙 공유</td></tr><tr><td>서브에이전트</td><td>독립 컨텍스트에서 위임된 일을 처리하고 결과를 반환. 후기 300개 정리처럼 읽을 자료가 많을 때 활용</td></tr><tr><td>실행 도구</td><td>exec_command, apply_patch 등 명령 실행·파일 읽기·수정</td></tr></tbody></table><p>공방 비유에서는 작업 지침은 벽에 붙인 운영 규칙, 스킬은 매뉴얼, MCP는 외부 통로, 실행 도구는 공구, 서브에이전트는 외주 작업자입니다. 리눅스 재단 산하 AAIF(Agentic AI Foundation)의 출범 프로젝트는 Anthropic MCP, Block goose, OpenAI AGENTS.md입니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article><article class="card"><h3><button class="open" type="button"><span class="editable-label">인스타툰 시연과 작업 흐름 설계</span><span aria-hidden="true">↗</span></button></h3><p class="summary">기획·제작·게시·반복 작업의 스킬화.</p><template><p>Plan Mode에서 커플 일상 인스타툰 계정 방향을 질문하며 정하고, 계획 확인 후 실행해 AGENTS.md에 남깁니다. 리서치·캐릭터·이야기를 정한 뒤 imagegen에 확정 캐릭터를 참고시켜 외형과 그림체가 일관된 5장을 제작합니다.</p><p>5장과 캡션을 준비해 사용자 확인 후 브라우저 조작으로 @kokalavi에 게시하는 시연입니다. 직접 소통한 뒤 게시물 선정 기준, 말투, 실행 전 사용자 확인과 실행 결과 확인을 스킬로 남깁니다.</p><table><thead><tr><th scope="col">요소</th><th scope="col">설계 내용</th></tr></thead><tbody><tr><td>Prompt</td><td>목표·조건·형식</td></tr><tr><td>Context</td><td>자료·맥락</td></tr><tr><td>Harness</td><td>도구·권한·환경</td></tr><tr><td>Loop</td><td>검사·수정·종료</td></tr><tr><td>Graph</td><td>역할·분기·합류</td></tr></tbody></table><p>나를 하나의 에이전트로 표현하는 성찰에서는 AGENTS.md에 원칙·일하는 방식·중요한 기준, SKILL.md에 경험·기술·취향·문제 해결 방식, 하네스에 연결할 도구, 루프에 반복할 업무와 피드백 방식을 정리합니다.</p><p class="source"><b>출처</b> <span>입학연수 특강 자료</span></p></template></article></div></section></main>
+</div>
+<footer class="wrap">코디세이 안내 PDF 18개를 바탕으로 작성했습니다. <strong>**</strong>는 편집자 소견을 뜻합니다.</footer>
+<dialog aria-labelledby="detail-title">
+<div class="dialog-head"><form method="dialog"><button type="submit">← 목록으로</button> <button type="button" id="detail-undo-delete" hidden disabled>되돌리기</button> <button type="button" id="detail-bold" class="bold-control" title="글자를 선택하고 누르면 굵게 표시하거나 해제합니다." hidden="">굵게</button></form></div>
+<div class="dialog-body">
+<h2 id="detail-title" tabindex="-1"></h2>
+<p id="detail-summary" class="summary"></p>
+<div id="detail-content"></div>
+</div>
+</dialog>
+<script>
+const historyEntries = [];
+let revision = 0;
+let savedRevision = 0;
+let listeners;
+
+window.addEventListener('beforeunload', event => {
+  if (revision === savedRevision) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
+
+function initialize(resume) {
+const controller = new AbortController();
+listeners = controller;
+const listen = (type, callback, capture = false) =>
+  document.addEventListener(type, callback, { capture, signal: controller.signal });
+const query = document.querySelector('#query');
+const status = document.querySelector('#status');
+const sections = [...document.querySelectorAll('main section')];
+const dialog = document.querySelector('dialog');
+const detailTitle = document.querySelector('#detail-title');
+const detailSummary = document.querySelector('#detail-summary');
+const detailContent = document.querySelector('#detail-content');
+const editButton = document.querySelector('#edit');
+const saveButton = document.querySelector('#save');
+const editorHelp = document.querySelector('#editor-help');
+const editingHint = '일정표를 포함해 점선이 표시된 글을 클릭해 수정하세요. 상세 본문은 카드의 ‘상세 편집’에서 수정할 수 있어요. 되돌리기는 이 탭의 편집을 최근 작업부터 취소합니다.';
+let activeButton;
+let activeCard;
+let editing = false;
+let textField;
+const undoButtons = [...document.querySelectorAll('#undo-delete, #detail-undo-delete')];
+
+function updateUndoButtons() {
+  for (const button of undoButtons) {
+    button.disabled = !historyEntries.length;
+    button.hidden = !editing;
+  }
+}
+
+function remember() {
+  textField = null;
+  commitDetail();
+  historyEntries.push({
+    html: serialize(),
+    cardIndex: dialog.open && activeCard ?
+      [...document.querySelectorAll('.card')].indexOf(activeCard.card) : -1,
+    scroll: window.scrollY,
+    detailScroll: dialog.scrollTop
+  });
+  updateUndoButtons();
+}
+
+for (const button of undoButtons) {
+  button.addEventListener('click', () => {
+    const snapshot = historyEntries.pop();
+    if (!snapshot) return;
+    revision++;
+    listeners.abort();
+    const restored = new DOMParser().parseFromString(snapshot.html, 'text/html');
+    document.title = restored.title;
+    const script = document.body.querySelector('script');
+    restored.body.querySelector('script').replaceWith(script);
+    document.body.replaceWith(restored.body);
+    initialize(snapshot);
+  });
+}
+let saving = false;
+const normalize = text => text.normalize('NFC').toLowerCase().replace(/\s+/g, ' ').trim();
+
+// Text inside navigation controls is editable independently of the control.
+for (const control of document.querySelectorAll('nav a, main h2, .open')) {
+  const directText = [...control.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+  if (!directText) continue;
+  const span = document.createElement('span');
+  span.className = 'editable-label';
+  directText.replaceWith(span);
+  span.append(directText);
+}
+
+function registerCard(card) {
+    const button = card.querySelector('.open');
+    const title = button.querySelector('.editable-label');
+    const summary = card.querySelector('.summary');
+    const template = card.querySelector('template');
+    const actions = document.createElement('div');
+    actions.className = 'card-actions';
+    actions.hidden = true;
+    const detailEdit = document.createElement('button');
+    detailEdit.type = 'button';
+    detailEdit.textContent = '상세 편집';
+    actions.append(detailEdit);
+    card.append(actions, pageHandle(card, '카드 이동'), pageDelete('카드', () => {
+      const group = groups.find(item => item.section.contains(card));
+      group.cards.splice(group.cards.indexOf(entry), 1);
+      card.remove();
+      updateNavCount(group);
+      group.addCard.focus();
+    }));
+    const entry = { card, button, title, summary, template, actions };
+    button.addEventListener('click', event => {
+      if (!editing) openDetail(entry, button);
+      else event.preventDefault();
+    });
+    detailEdit.addEventListener('click', () => openDetail(entry, detailEdit));
+    return entry;
+}
+
+const groups = sections.map(registerSection);
+function registerSection(section) {
+  const cards = [...section.querySelectorAll('.card')].map(registerCard);
+  const addCard = editControl('＋ 카드 추가', () => {
+    remember();
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = '<h3><button class="open" type="button"><span class="editable-label">새 안내</span><span aria-hidden="true">↗</span></button></h3><p class="summary">안내 설명을 입력하세요.</p><template><h3>사용 방법</h3><ol><li>첫 단계를 입력하세요.</li></ol><p class="source"><b>출처</b> <span>자료명과 날짜를 입력하세요.</span></p></template>';
+    section.querySelector('.cards').append(card);
+    const entry = registerCard(card);
+    cards.push(entry);
+    entry.title.contentEditable = 'true';
+    entry.summary.contentEditable = 'true';
+    setCardEditing(entry, true);
+    updateNavCount({ section, cards });
+    revision++;
+    filter();
+    entry.title.focus();
+  });
+  addCard.hidden = true;
+  section.append(addCard, pageHandle(section, '카테고리 이동'), pageDelete('카테고리', () => {
+    removeCategory(section);
+  }, '이 카테고리와 안에 있는 카드를 모두 삭제할까요?'));
+  return { section, cards, addCard };
+}
+
+for (const link of document.querySelectorAll('nav a')) registerNav(link);
+
+function registerNav(link) {
+  const item = document.createElement('div');
+  item.className = 'nav-item';
+  link.before(item);
+  item.append(link, pageHandle(item, '목차 항목 이동'), pageDelete('목차 항목', () => {
+    removeCategory(document.getElementById(link.hash.slice(1)));
+  }, '이 목차 항목과 연결된 카테고리 및 카드를 모두 삭제할까요?'));
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    if (editing && event.target.closest('[contenteditable]')) return;
+    query.value = '';
+    filter();
+    const section = document.querySelector(link.getAttribute('href'));
+    section.scrollIntoView();
+    section.querySelector('h2').focus({ preventScroll: true });
+  });
+}
+
+function addNav(group) {
+  const link = document.createElement('a');
+  link.href = '#' + group.section.id;
+  const label = document.createElement('span');
+  label.className = 'editable-label';
+  label.contentEditable = String(editing);
+  label.textContent = group.section.querySelector('h2 .editable-label').textContent;
+  const count = document.createElement('small');
+  count.textContent = String(group.cards.length);
+  link.append(label, count);
+  document.querySelector('nav').append(link);
+  registerNav(link);
+}
+
+const categoryTools = document.querySelector('#category-tools');
+const navTools = document.querySelector('#nav-tools');
+function removeCategory(section) {
+  const index = groups.findIndex(group => group.section === section);
+  if (index < 0) return;
+  groups.splice(index, 1);
+  document.querySelector('nav a[href="#' + section.id + '"]')?.closest('.nav-item').remove();
+  section.remove();
+  editButton.focus();
+}
+
+for (const group of groups) {
+  if (!document.querySelector('nav a[href="#' + group.section.id + '"]')) addNav(group);
+}
+navTools.append(editControl('＋ 목차 항목 추가', addCategory));
+categoryTools.append(editControl('＋ 카테고리 추가', addCategory));
+
+function addCategory() {
+  const name = window.prompt('카테고리 이름을 입력하세요.')?.trim();
+  if (!name) return;
+  remember();
+  const section = document.createElement('section');
+  let index = 1;
+  while (document.getElementById('category-' + index)) index++;
+  section.id = 'category-' + index;
+  section.setAttribute('aria-labelledby', section.id + '-heading');
+  section.innerHTML = '<h2 tabindex="-1"><span class="number"></span><span class="editable-label"></span></h2><div class="cards"></div>';
+  const heading = section.querySelector('h2');
+  heading.id = section.id + '-heading';
+  const label = heading.querySelector('.editable-label');
+  label.contentEditable = 'true';
+  label.textContent = name;
+  document.querySelector('main').append(section);
+  const group = registerSection(section);
+  groups.push(group);
+  group.addCard.hidden = false;
+  addNav(group);
+  revision++;
+  filter();
+  label.focus();
+}
+
+function pageDelete(label, remove, message = label + '을(를) 삭제할까요?') {
+  const button = editControl('×', () => {
+    if (!window.confirm(message)) return;
+    clearTableDrag();
+    remember();
+    remove();
+    revision++;
+    filter();
+  });
+  button.classList.add('page-delete');
+  button.setAttribute('aria-label', label + ' 삭제');
+  return button;
+}
+
+function updateNavCount(group) {
+  const count = document.querySelector('nav a[href="#' + group.section.id + '"] small');
+  if (count) count.textContent = String(group.cards.length);
+}
+
+function pageHandle(block, label) {
+  const handle = reorderHandle(block, label);
+  handle.classList.add('page-handle');
+  return handle;
+}
+
+function editControl(label, onClick) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'add-control';
+  button.textContent = label;
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+function addDetailControls() {
+  const addNote = editControl('＋ 주의사항 추가', () => {
+    remember();
+    const note = document.createElement('aside');
+    note.innerHTML = '<strong contenteditable="true">주의사항</strong><p contenteditable="true">주의할 내용을 입력하세요.</p>';
+    const source = detailContent.querySelector(':scope > .table-edit > .source')?.parentElement;
+    if (source) source.before(note);
+    else addNote.before(note);
+    addBoxControls(note, addNote);
+    revision++;
+    note.querySelector('p').focus();
+  });
+  addNote.classList.add('note-add');
+  detailContent.append(addNote);
+  for (const list of detailContent.querySelectorAll('ol, ul')) {
+    const addStep = editControl('＋ 단계 추가', () => {
+      remember();
+      const step = document.createElement('li');
+      step.contentEditable = 'true';
+      step.textContent = '새 단계를 입력하세요.';
+      list.append(step);
+      addBoxControls(step, addNote);
+      revision++;
+      step.querySelector('.step-content').focus();
+    });
+    addStep.classList.add('step-add');
+    list.after(addStep);
+  }
+  for (const content of detailBlocks(detailContent)) addBoxControls(content, addNote);
+  for (const step of detailContent.querySelectorAll('.table-edit > ol > li, .table-edit > ul > li')) {
+    addBoxControls(step, addNote);
+  }
+}
+
+function addBoxControls(content, fallbackFocus) {
+    const isStep = content.matches('li');
+    const tools = document.createElement('div');
+    tools.className = 'table-controls';
+    if (content.matches('table')) tools.append(editControl('＋ 표 행 추가', () => {
+      remember();
+      const previous = content.rows[content.rows.length - 1];
+      const row = previous.cloneNode(true);
+      for (const cell of row.cells) {
+        const field = cell.querySelector('[contenteditable]') || cell;
+        field.contentEditable = 'true';
+        field.textContent = '입력하세요.';
+      }
+      previous.after(row);
+      revision++;
+      row.querySelector('[contenteditable]').focus();
+    }));
+    const block = isStep ? content : document.createElement('div');
+    block.classList.add('table-edit');
+    if (isStep) {
+      const field = document.createElement('div');
+      field.className = 'step-content';
+      field.contentEditable = 'true';
+      field.append(...content.childNodes);
+      content.removeAttribute('contenteditable');
+      content.append(field);
+    }
+    const handle = reorderHandle(block, '박스 이동');
+    const remove = editControl('×', () => {
+      if (!window.confirm('이 박스를 삭제할까요?')) return;
+      clearTableDrag();
+      remember();
+      block.remove();
+      revision++;
+      fallbackFocus.focus();
+    });
+    remove.classList.add('table-delete');
+    remove.setAttribute('aria-label', '박스 삭제');
+
+    if (!isStep) {
+      const addStep = content.nextElementSibling;
+      content.before(block);
+      block.append(content);
+      if (addStep?.matches('.step-add')) block.append(addStep);
+    }
+    block.append(handle, remove);
+    if (tools.childElementCount) block.append(tools);
+}
+
+let draggedTable = null;
+let dropTarget = null;
+let dropSide = '';
+
+function reorderHandle(block, label) {
+    const handle = editControl('⠿', () => {});
+    handle.classList.add('table-handle');
+    handle.setAttribute('aria-pressed', 'false');
+    handle.setAttribute('aria-label', label);
+    handle.title = '끌어서 이동하거나 눌러서 위치를 선택하세요.';
+    let start;
+    let moved;
+    handle.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      start = { x: event.clientX, y: event.clientY };
+      moved = false;
+      handle.setPointerCapture(event.pointerId);
+    });
+    handle.addEventListener('pointermove', event => {
+      if (!start) return;
+      if (Math.hypot(event.clientX - start.x, event.clientY - start.y) < 5 && !moved) return;
+      moved = true;
+      if (draggedTable && draggedTable !== block) clearTableDrag();
+      draggedTable = block;
+      markTableTarget(event);
+    });
+    handle.addEventListener('pointerup', event => {
+      if (!start) return;
+      start = null;
+      if (!moved) return;
+      markTableTarget(event);
+      finishTableMove();
+    });
+    handle.addEventListener('pointercancel', () => {
+      start = null;
+      moved = false;
+      clearTableDrag();
+    });
+    handle.addEventListener('click', event => {
+      if (event.detail && moved) return;
+      const wasSelected = draggedTable === block;
+      clearTableDrag();
+      if (wasSelected) return;
+      draggedTable = block;
+      handle.setAttribute('aria-pressed', 'true');
+
+    });
+    return handle;
+}
+
+
+function detailBlocks(parent) {
+  return [...parent.children].filter(node => !node.matches('.add-control'));
+}
+
+function placeTable(block, target, side) {
+  remember();
+  if (side === 'inside') target.append(block);
+  else if (side === 'after' || side === 'right') target.after(block);
+  else target.before(block);
+  if (block.matches('.card')) {
+    const entries = new Map(groups.flatMap(group => group.cards.map(entry => [entry.card, entry])));
+    for (const group of groups) {
+      group.cards.splice(0, group.cards.length, ...[...group.section.querySelectorAll('.card')].map(card => entries.get(card)));
+      updateNavCount(group);
+    }
+    filter();
+  }
+  if (block.matches('section')) filter();
+  revision++;
+}
+
+function clearDropTarget() {
+  if (dropTarget) dropTarget.classList.remove('drop-' + dropSide);
+  dropTarget = null;
+  dropSide = '';
+}
+
+function clearTableDrag() {
+  clearDropTarget();
+  const handle = draggedTable?.querySelector(':scope > .table-handle');
+  if (handle) {
+    handle.setAttribute('aria-pressed', 'false');
+  }
+  draggedTable = null;
+}
+
+function markTableTarget(event) {
+  clearDropTarget();
+  const hit = document.elementFromPoint(event.clientX, event.clientY);
+  const isCard = draggedTable.matches('.card');
+  const grid = isCard && hit?.closest('main section')?.querySelector('.cards');
+  let siblings = detailBlocks(draggedTable.parentElement);
+  if (draggedTable.matches('section')) siblings = siblings.filter(node => node.matches('section'));
+  if (draggedTable.matches('.nav-item')) siblings = siblings.filter(node => node.matches('.nav-item'));
+  const target = isCard ? hit?.closest('.card') || grid : siblings.find(block => block.contains(hit));
+  if (!target || target === draggedTable) return;
+  if (target.matches('.cards')) {
+    if (target === draggedTable.parentElement && draggedTable === target.lastElementChild) return;
+    dropSide = 'inside';
+  } else {
+    const bounds = target.getBoundingClientRect();
+    const horizontal = (isCard && getComputedStyle(target.parentElement).gridTemplateColumns.split(' ').length > 1) ||
+      (target.matches('.nav-item') && getComputedStyle(target.parentElement).display === 'flex');
+    dropSide = horizontal ? (event.clientX < bounds.left + bounds.width / 2 ? 'left' : 'right') :
+      (event.clientY < bounds.top + bounds.height / 2 ? 'before' : 'after');
+  }
+  dropTarget = target;
+  target.classList.add('drop-' + dropSide);
+}
+
+function finishTableMove() {
+  if (draggedTable && dropTarget) placeTable(draggedTable, dropTarget, dropSide);
+  clearTableDrag();
+}
+
+listen('pointermove', event => {
+  if (draggedTable) markTableTarget(event);
+});
+listen('click', event => {
+  if (!draggedTable || event.target.closest('button')) return;
+  markTableTarget(event);
+  if (dropTarget) {
+    event.preventDefault();
+    finishTableMove();
+  }
+}, true);
+listen('keydown', event => {
+  if (event.key !== 'Escape' || !draggedTable) return;
+  event.preventDefault();
+  clearTableDrag();
+});
+
+function openDetail(entry, trigger) {
+  document.querySelector('#detail-bold').hidden = !editing;
+  activeButton = trigger;
+  activeCard = entry;
+  boldRange = null;
+  renderDetail(entry);
+  dialog.showModal();
+  if (editing) detailTitle.focus({ preventScroll: true });
+  else dialog.querySelector('button').focus({ preventScroll: true });
+  dialog.scrollTop = 0;
+}
+
+function renderDetail(entry) {
+  detailTitle.innerHTML = entry.title.innerHTML;
+  detailSummary.innerHTML = entry.summary.innerHTML;
+  detailContent.replaceChildren(entry.template.content.cloneNode(true));
+  detailTitle.contentEditable = editing ? 'true' : 'inherit';
+  detailSummary.contentEditable = editing ? 'true' : 'inherit';
+  for (const field of detailContent.querySelectorAll('h3, li, aside > strong, aside p, caption, th, td:not(:has(kbd)), kbd, .source b, .source span, :scope > p:not(.source)')) {
+    if (editing) field.contentEditable = 'true';
+  }
+  if (editing) addDetailControls();
+}
+
+function commitDetail() {
+  if (!editing || !activeCard) return;
+  activeCard.title.innerHTML = detailTitle.innerHTML;
+  activeCard.summary.innerHTML = detailSummary.innerHTML;
+  const clone = detailContent.cloneNode(true);
+  cleanDetail(clone);
+  activeCard.template.content.replaceChildren(...clone.childNodes);
+}
+
+function cleanDetail(clone) {
+  for (const field of clone.querySelectorAll('[contenteditable]')) field.removeAttribute('contenteditable');
+  const steps = [...clone.querySelectorAll('li.table-edit')];
+  if (clone.matches('li.table-edit')) steps.unshift(clone);
+  for (const step of steps) {
+    step.replaceChildren(...step.querySelector('.step-content').childNodes);
+    step.classList.remove('table-edit');
+    if (!step.className) step.removeAttribute('class');
+  }
+  for (const block of clone.querySelectorAll('div.table-edit')) block.replaceWith(block.firstElementChild);
+  for (const button of clone.querySelectorAll('.add-control, .table-controls')) button.remove();
+}
+
+const pageFieldSelector = 'h1, .eyebrow, .intro, label[for=query], nav p, .editable-label, .card .summary, footer, .schedule th, .schedule time, .schedule .event-label, .schedule .study, .schedule .outside-mark';
+
+function setEditing(value) {
+  clearTableDrag();
+  boldRange = null;
+  editing = value;
+  updateUndoButtons();
+  document.querySelector('#page-bold').hidden = !value;
+  document.body.classList.toggle('editing', value);
+  editButton.setAttribute('aria-pressed', String(value));
+  editButton.textContent = value ? '편집 완료' : '편집';
+  editorHelp.hidden = !value;
+  editorHelp.textContent = value ? editingHint : '';
+  categoryTools.hidden = !value;
+  navTools.hidden = !value;
+  for (const field of document.querySelectorAll(pageFieldSelector)) {
+    if (value) field.contentEditable = 'true';
+    else field.removeAttribute('contenteditable');
+  }
+  for (const { cards, addCard } of groups) {
+    addCard.hidden = !value;
+    for (const entry of cards) setCardEditing(entry, value);
+  }
+  if (value) query.value = '';
+  filter();
+}
+
+function setCardEditing({ button, title, actions }, value) {
+  actions.hidden = !value;
+  if (button.hidden === value) return;
+  if (value) {
+    const titleContainer = document.createElement('div');
+    titleContainer.className = 'open edit-title';
+    titleContainer.append(title);
+    button.hidden = true;
+    button.after(titleContainer);
+  } else {
+    const titleContainer = button.nextElementSibling;
+    button.prepend(title);
+    titleContainer.remove();
+    button.hidden = false;
+  }
+}
+
+let boldRange;
+listen('selectionchange', () => {
+  const selection = window.getSelection();
+  if (!editing || !selection.rangeCount || selection.isCollapsed) return;
+  const range = selection.getRangeAt(0);
+  const field = range.startContainer.parentElement?.closest('[contenteditable="true"]');
+  if (field?.contains(range.endContainer)) boldRange = range.cloneRange();
+  else boldRange = null;
+});
+for (const button of document.querySelectorAll('.bold-control')) {
+  button.title = '글자를 선택하고 누르면 굵게 표시하거나 해제합니다.';
+  button.addEventListener('mousedown', event => event.preventDefault());
+  button.addEventListener('click', () => {
+    const field = boldRange?.startContainer.parentElement?.closest('[contenteditable="true"]');
+    if (!editing || !field?.isConnected || dialog.contains(field) !== dialog.open ||
+        !field.contains(boldRange.endContainer) || boldRange.collapsed) return;
+    remember();
+    field.focus({ preventScroll: true });
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(boldRange);
+    textField = field;
+    if (document.execCommand('bold')) revision++;
+    textField = null;
+  });
+}
+
+listen('paste', event => {
+  if (!event.target.isContentEditable) return;
+  event.preventDefault();
+  rememberText(event.target);
+  document.execCommand('insertText', false, event.clipboardData.getData('text/plain'));
+});
+listen('drop', event => {
+  if (event.target.isContentEditable) event.preventDefault();
+});
+listen('keydown', event => {
+  if (event.key !== 'Enter' || event.isComposing || !event.target.isContentEditable) return;
+  event.preventDefault();
+  rememberText(event.target);
+  document.execCommand('insertLineBreak');
+});
+
+editButton.addEventListener('click', () => setEditing(!editing));
+function rememberText(field) {
+  if (!field.isContentEditable || field === textField) return;
+  remember();
+  textField = field;
+}
+
+listen('beforeinput', event => rememberText(event.target));
+listen('focusout', event => {
+  if (event.target === textField) textField = null;
+});
+listen('input', event => {
+  if (!event.target.isContentEditable) return;
+  revision++;
+  const label = event.target.closest('nav .editable-label, main h2 .editable-label');
+  if (!label) return;
+  const link = label.closest('a');
+  const section = label.closest('section') || document.getElementById(link.hash.slice(1));
+  const counterpart = link ? section.querySelector('h2 .editable-label') :
+    document.querySelector('nav a[href="#' + section.id + '"] .editable-label');
+  if (counterpart) counterpart.textContent = label.textContent;
+
+});
+
+function serialize() {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector('body').classList.remove('editing');
+  const edit = clone.querySelector('#edit');
+  edit.textContent = '편집';
+  edit.setAttribute('aria-pressed', 'false');
+  for (const button of clone.querySelectorAll('#undo-delete, #detail-undo-delete')) {
+    button.hidden = true;
+    button.disabled = true;
+  }
+  for (const id of ['category-tools', 'nav-tools']) {
+    const tools = clone.querySelector('#' + id);
+    tools.hidden = true;
+    tools.replaceChildren();
+  }
+  for (const title of clone.querySelectorAll('.edit-title')) {
+    const button = title.previousElementSibling;
+    button.prepend(title.querySelector('.editable-label'));
+    button.hidden = false;
+    title.remove();
+  }
+  for (const node of clone.querySelectorAll('.page-handle, .page-delete')) node.remove();
+  for (const node of clone.querySelectorAll('[class*="drop-"]')) {
+    for (const name of [...node.classList]) if (name.startsWith('drop-')) node.classList.remove(name);
+  }
+  clone.querySelector('title').textContent = clone.querySelector('h1').textContent;
+  for (const field of clone.querySelectorAll('[contenteditable]')) field.removeAttribute('contenteditable');
+  clone.querySelector('dialog').removeAttribute('open');
+  for (const button of clone.querySelectorAll('.bold-control')) button.hidden = true;
+  clone.querySelector('#query').value = '';
+  for (const actions of clone.querySelectorAll('.card-actions, .add-control')) actions.remove();
+  for (const item of clone.querySelectorAll('.nav-item')) item.replaceWith(item.querySelector('a'));
+  const help = clone.querySelector('#editor-help');
+  help.hidden = true;
+  help.textContent = '';
+  clone.querySelector('#detail-title').textContent = '';
+  clone.querySelector('#detail-summary').textContent = '';
+  clone.querySelector('#detail-content').replaceChildren();
+  for (const node of clone.querySelectorAll('main section, .card')) node.hidden = false;
+  clone.querySelector('#status').textContent = '전체 안내 ' + groups.reduce((n, group) => n + group.cards.length, 0) + '개';
+  return '<!doctype html>\n' + clone.outerHTML;
+}
+
+function downloadGuide(contents, name) {
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(new Blob([contents], { type: 'text/html;charset=utf-8' }));
+  link.href = url;
+  link.download = name;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+  editorHelp.textContent = '파일 다운로드를 요청했어요. 기존 파일을 덮어쓰려면 같은 위치와 이름을 선택하세요.';
+}
+
+saveButton.addEventListener('click', async () => {
+  if (saving) return;
+  saving = true;
+  commitDetail();
+  if (editing) setEditing(false);
+  const currentRevision = revision;
+  const contents = serialize();
+  let writable;
+  const name = '코디세이_입학_과정_통합_안내.html';
+  try {
+    if (typeof window.showSaveFilePicker === 'function') {
+      const file = await window.showSaveFilePicker({
+        suggestedName: name,
+        types: [{ description: 'HTML 파일', accept: { 'text/html': ['.html', '.htm'] } }],
+        excludeAcceptAllOption: true
+      });
+      writable = await file.createWritable();
+      await writable.write(contents);
+      await writable.close();
+      savedRevision = currentRevision;
+      editorHelp.textContent = file.name + '에 저장했어요.';
+    } else {
+      downloadGuide(contents, name);
+      savedRevision = currentRevision;
+    }
+  } catch (error) {
+    if (writable) await writable.abort().catch(() => {});
+    if (!writable && ['SecurityError', 'NotAllowedError'].includes(error.name)) {
+      downloadGuide(contents, name);
+      savedRevision = currentRevision;
+      return;
+    }
+    editorHelp.textContent = error.name === 'AbortError' ? '저장을 취소했어요. 수정 내용은 이 화면에 남아 있어요.' : '파일에 저장하지 못했어요. 파일 선택을 허용하는 브라우저에서 다시 시도해 주세요.';
+  } finally {
+    saving = false;
+    editorHelp.hidden = false;
+  }
+});
+
+function filter() {
+  const orderedSections = document.querySelectorAll('main > section');
+  orderedSections.forEach((section, index) => {
+    section.querySelector('.number').textContent = String(index + 1).padStart(2, '0');
+  });
+  const keyword = editing ? '' : normalize(query.value);
+  let count = 0;
+  for (const { section, cards } of groups) {
+    let visible = 0;
+    for (const { card, title, summary, template } of cards) {
+      const body = [...template.content.children].map(item => item.textContent);
+      const text = normalize([title.textContent, summary.textContent, ...body].join(' '));
+      card.hidden = !text.includes(keyword);
+      if (!card.hidden) visible++;
+    }
+    section.hidden = Boolean(keyword) && visible === 0;
+    count += visible;
+  }
+  status.textContent = !keyword ? '전체 안내 ' + count + '개' : count ? '검색 결과 ' + count + '개' : '검색 결과가 없습니다';
+}
+
+query.addEventListener('input', filter);
+dialog.addEventListener('close', () => {
+  clearTableDrag();
+  commitDetail();
+  activeCard = null;
+  filter();
+  activeButton?.focus({ preventScroll: true });
+});
+filter();
+if (resume) {
+  setEditing(true);
+  window.scrollTo(0, resume.scroll);
+  const card = document.querySelectorAll('.card')[resume.cardIndex];
+  const entry = groups.flatMap(group => group.cards).find(item => item.card === card);
+  if (entry) {
+    openDetail(entry, entry.actions.querySelector('button'));
+    dialog.scrollTop = resume.detailScroll;
+  }
+}
+}
+
+initialize();
+</script>
+
+
+</body></html>
